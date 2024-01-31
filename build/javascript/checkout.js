@@ -1,6 +1,6 @@
-import {cartItem, removeFromCart} from "javascript/cart.js";
-import {products} from "javascript/product.js";
-import {formatCurrency} from "utility/money.js";
+import {cartItem, removeFromCart} from "cart.js";
+import {products} from "product.js";
+import {formatCurrency} from "../utility/money.js";
 
 let cartSummaryHTML = '';
 
