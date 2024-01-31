@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .nav {
+        @apply flex h-36 gap-4 sm:h-[44px] sm:my-0 sm:gap-0;
+    }
+    .nav_list {
+        @apply text-white text-center font-bold sm:hidden;
+    }
+}
+@layer utilities {
+.multiline-ellipsis {
+    height: 42px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+  };
+  
+}
