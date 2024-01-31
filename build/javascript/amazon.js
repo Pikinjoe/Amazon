@@ -1,6 +1,6 @@
-import {cartItem, addToCart} from "/build/javascript/cart.js";
-import {products} from "/build/javascript/product.js";
-import {formatCurrency} from "/build/utility/money.js";
+import {cartItem, addToCart} from "javascript/cart.js";
+import {products} from "javascript/product.js";
+import {formatCurrency} from "utility/money.js";
 
 
 
@@ -47,7 +47,7 @@ products.forEach((product) => {
             </select>
         </div>
         <div class="js-added-class-${product.id} my-2 text-green-600 opacity-0 flex gap-1 items-center">
-            <img src="/build/Logo/checkmark.png" alt="" class="w-5 h-5"> Added
+            <img src="../Logo/checkmark.png" alt="" class="w-5 h-5"> Added
         </div>
         <div class="w-full mt-3 mb-6">
             <button class="btn bg-yellow-400 hover:bg-yellow-500 py-1 px-4 w-full rounded-full" data-product-id="${product.id}">
