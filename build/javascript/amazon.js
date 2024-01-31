@@ -26,7 +26,7 @@ products.forEach((product) => {
         </div>
         <p class="my-2 multiline-ellipsis leading-tight">${product.name}</p>
         <div class="flex">
-            <img src="/dist/Ratings/rating-${product.rating.stars * 10}.png" alt="" class="w-28">
+            <img src="./Ratings/rating-${product.rating.stars * 10}.png" alt="" class="w-28">
             <div class="text-blue-500 ml-1">
                 ${product.rating.count}
             </div>
