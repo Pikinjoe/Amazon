@@ -1,5 +1,5 @@
-import {cartItem, removeFromCart} from "cart.js";
-import {products} from "product.js";
+import {cartItem, removeFromCart} from "../javascript/cart.js";
+import {products} from "../javascript/product.js";
 import {formatCurrency} from "../utility/money.js";
 
 let cartSummaryHTML = '';
@@ -21,7 +21,7 @@ cartItem.forEach(cart => {
         <div class="lg:flex lg:gap-8">
             <div class="mb-4 flex gap-3 justify-center lg:w-3/5 overflow-hidden">
                 <div class="basis-1/3">
-                    <img src="${sameProduct.image}" >
+                    <img src="../${sameProduct.image}" >
                 </div>
                 <div class="basis-2/3">
                     <p class="font-bold mb-2">${sameProduct.name}</p>

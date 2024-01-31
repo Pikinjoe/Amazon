@@ -1,5 +1,5 @@
-import {cartItem, addToCart} from "cart.js";
-import {products} from "product.js";
+import {cartItem, addToCart} from "../javascript/cart.js";
+import {products} from "../javascript/product.js";
 import {formatCurrency} from "../utility/money.js";
 
 
