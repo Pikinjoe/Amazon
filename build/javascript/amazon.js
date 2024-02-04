@@ -1,4 +1,4 @@
-import {cartItem, addToCart} from "../javascript/cart.js";
+import {cartItem, addToCart, calculateCartQuantity} from "../javascript/cart.js";
 import {products} from "../javascript/product.js";
 import {formatCurrency} from "../utility/money.js";
 
@@ -14,6 +14,8 @@ navBar.addEventListener('click', () => {
     navHead.classList.toggle('nav');
     navList.classList.toggle('nav_list')
 })
+
+updateCartQuantity();
 
 // Generating Html with JS
 let productHtml = '';
@@ -63,16 +65,9 @@ products.forEach((product) => {
 document.querySelector('.container-div').innerHTML = productHtml;
 
 function updateCartQuantity() {
-    let cartQuantity = 0;
-
-    cartItem.forEach((item) => {
-        cartQuantity += item.quantity;
-    })
-    document.querySelectorAll('.cart-output')
-    .forEach((output) => {
-    output.innerHTML = cartQuantity;
-    });
+    calculateCartQuantity();
 }
+
 
 
 document.querySelectorAll('.btn').forEach((button) => {
