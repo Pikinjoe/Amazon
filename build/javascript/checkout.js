@@ -145,8 +145,14 @@ document.querySelectorAll('.save-quantity-link')
                 .js-quantity-input-${productId}
             `);
             const newQuantity = Number(quantityValue.value);
+
+            if (newQuantity < 0 || newQuantity >=1000) {
+                alert('Quantity must be at least 0 and less than 1000');
+                return;
+            }
             updateNewCartQuantity(productId, newQuantity);
 
+            
             const quantityLabelNumber = document.querySelector(
                 `.js-quantity-label-${productId}`
             );
