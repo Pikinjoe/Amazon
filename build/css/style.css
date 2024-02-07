@@ -711,6 +711,10 @@ video {
   height: 1.25rem;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
 .h-\[180px\] {
   height: 180px;
 }
@@ -757,6 +761,10 @@ video {
 
 .w-5\/6 {
   width: 83.333333%;
+}
+
+.w-8 {
+  width: 2rem;
 }
 
 .w-\[100px\] {
@@ -863,6 +871,10 @@ video {
 
 .border-t-0 {
   border-top-width: 0px;
+}
+
+.border-solid {
+  border-style: solid;
 }
 
 .border-gray-300 {
@@ -1102,6 +1114,10 @@ video {
 
   .sm\:w-2\/6 {
     width: 33.333333%;
+  }
+
+  .sm\:gap-2 {
+    gap: 0.5rem;
   }
 }
 

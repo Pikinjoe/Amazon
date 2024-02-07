@@ -1,4 +1,4 @@
-import {cartItem, removeFromCart, calculateCartQuantity} from "../javascript/cart.js";
+import {cartItem, removeFromCart, calculateCartQuantity, updateNewCartQuantity} from "../javascript/cart.js";
 import {products} from "../javascript/product.js";
 import {formatCurrency} from "../utility/money.js";
 
@@ -32,12 +32,20 @@ cartItem.forEach(cart => {
                 <div class="basis-2/3">
                     <p class="font-bold mb-2">${sameProduct.name}</p>
                     <p class="text-red-700 font-bold mb-2">$${formatCurrency(sameProduct.priceCent)}</p>
-                    <div class="flex gap-2">
+                    <div class="flex flex-wrap gap-1 sm:gap-2">
                         <p>
-                            Quantity: <span>${cart.quantity}</span>
+                            Quantity: <span class="quantity-label js-quantity-label-${sameProduct.id}">${cart.quantity}</span>
                         </p>
-                        <button class="text-blue-400">Update</button>
-                        <button class="text-blue-400 delete-link" data-product-id="${sameProduct.id}">Delete</button>
+                        <span class="text-blue-400 cursor-pointer update-link" data-product-id="${sameProduct.id}">
+                            Update
+                        </span>
+                        <input class="w-8 h-6 border border-solid quantity-input hidden js-quantity-input-${sameProduct.id}">
+                        <span class="save-quantity-link hidden cursor-pointer" data-product-id="${sameProduct.id}">
+                            Save
+                        </span>
+                        <span class="text-blue-400 cursor-pointer delete-link" data-product-id="${sameProduct.id}">
+                            Delete
+                        </span>
                     </div>
                 </div>
             </div>    
@@ -91,3 +99,59 @@ document.querySelectorAll('.delete-link')
             updateCartQuantity()
         });
     });
+
+document.querySelectorAll('.update-link')
+    .forEach(link => {
+        link.addEventListener('click', () => {
+            const productId = link.dataset.productId;
+            const quantityInput = document.querySelector(`
+                .js-cart-container-${productId} .quantity-input
+            `);
+            const saveLink = document.querySelector(`
+                .js-cart-container-${productId} .save-quantity-link
+            `);
+            const quantityLabel = document.querySelector(`
+                .js-cart-container-${productId} .quantity-label
+            `);
+    
+            quantityInput.classList.remove('hidden');
+            saveLink.classList.remove('hidden');
+            link.classList.add('hidden')
+            quantityLabel.classList.add('hidden')
+
+        });
+    });
+
+document.querySelectorAll('.save-quantity-link')
+    .forEach(link => {
+        link.addEventListener('click', () => {
+            const productId = link.dataset.productId;
+            const quantityInput = document.querySelector(`
+                .js-cart-container-${productId} .quantity-input
+            `);
+            const updateLink = document.querySelector(`
+                .js-cart-container-${productId} .update-link
+            `);
+            const quantityLabel = document.querySelector(`
+                .js-cart-container-${productId} .quantity-label
+            `);
+    
+            quantityInput.classList.add('hidden');
+            updateLink.classList.remove('hidden');
+            link.classList.add('hidden');
+            quantityLabel.classList.remove('hidden');
+            
+            const quantityValue = document.querySelector(`
+                .js-quantity-input-${productId}
+            `);
+            const newQuantity = Number(quantityValue.value);
+            updateNewCartQuantity(productId, newQuantity);
+
+            const quantityLabelNumber = document.querySelector(
+                `.js-quantity-label-${productId}`
+            );
+            quantityLabelNumber.innerHTML = newQuantity;
+            updateCartQuantity();
+        })
+    })
+
