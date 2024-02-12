@@ -1,3 +1,15 @@
+export function getProduct(productId) {
+    let sameProduct;
+
+    products.forEach((product) => {
+        if (product.id === productId){
+            sameProduct = product
+        }
+    });
+
+    return sameProduct;
+};
+
 export const products = [{
     id: '112e2-2211-3211',
     image: 'images/6-piece-non-stick-baking-set.webp',
