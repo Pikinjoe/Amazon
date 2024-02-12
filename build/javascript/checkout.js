@@ -36,12 +36,14 @@ cartItem.forEach(cart => {
     });
 
     const today = dayjs();
-    const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+    const deliveryDate = today.add(deliveryOption.deliveryDays,    'days');
     const dateString = deliveryDate.format('dddd, MMMM D');
 
     cartSummaryHTML += `<div class="border-gray-300 border rounded-md mb-2 js-cart-container-${sameProduct.id}">
     <div class="w-11/12 mx-auto py-4">
-        <p class="font-bold text-lg text-green-700 mb-4">Delivery date: ${dateString}</p>
+        <p class="font-bold text-lg text-green-700 mb-4">
+            Delivery date: ${dateString}
+        </p>
         <div class="lg:flex lg:gap-8">
             <div class="mb-4 flex gap-3 justify-center lg:w-3/5 overflow-hidden">
                 <div class="basis-1/3">
