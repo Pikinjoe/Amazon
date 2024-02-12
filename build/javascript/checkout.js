@@ -1,6 +1,10 @@
 import {cartItem, removeFromCart, calculateCartQuantity, updateNewCartQuantity} from "../javascript/cart.js";
 import {products} from "../javascript/product.js";
 import {formatCurrency} from "../utility/money.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import {deliveryOptions} from "../javascript/deliveryOptions.js";
+
+
 
 function updateCartQuantity() {
    calculateCartQuantity();
@@ -19,11 +23,25 @@ cartItem.forEach(cart => {
         if (product.id === productId){
             sameProduct = product
         }
-    })
+    });
+
+    const deliveryOptionId = cart.deliveryOptionId;
+
+    let deliveryOption;
+
+    deliveryOptions.forEach(option => {
+        if (option.id === deliveryOptionId) {
+            deliveryOption = option;
+        }
+    });
+
+    const today = dayjs();
+    const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+    const dateString = deliveryDate.format('dddd, MMMM D');
 
     cartSummaryHTML += `<div class="border-gray-300 border rounded-md mb-2 js-cart-container-${sameProduct.id}">
     <div class="w-11/12 mx-auto py-4">
-        <p class="font-bold text-lg text-green-700 mb-4">Delivery date: Tuesday, January 30</p>
+        <p class="font-bold text-lg text-green-700 mb-4">Delivery date: ${dateString}</p>
         <div class="lg:flex lg:gap-8">
             <div class="mb-4 flex gap-3 justify-center lg:w-3/5 overflow-hidden">
                 <div class="basis-1/3">
@@ -52,34 +70,42 @@ cartItem.forEach(cart => {
             
             <div class="lg:w-2/5">
                 <p class="font-bold">Choose a delivery option:</p>
-                <div>
-                    <div class="my-3 flex items-center gap-2">
-                        <input type="radio" name="${sameProduct.id}" class="w-5 h-5 cursor-pointer">
-                        <div>
-                            <p class="text-green-700 font-medium">Tuesday, January 30</p>
-                            <p class="text-gray-500">FREE Shipping</p>
-                        </div>
-                    </div> 
-                    <div class="my-3 flex items-center gap-2">
-                        <input type="radio" name="${sameProduct.id}" class="w-5 h-5 cursor-pointer">
-                        <div>
-                            <p class="text-green-700 font-medium">Wednesday, January 24</p>
-                            <p class="text-gray-500">$4.99 - Shipping</p>
-                        </div>
-                    </div>
-                    <div class="my-3 flex items-center gap-2">
-                        <input type="radio" name="${sameProduct.id}" class="w-5 h-5 cursor-pointer">
-                        <div>
-                            <p class="text-green-700 font-medium">Monday, January 22</p>
-                            <p class="text-gray-500">$9.99 - Shipping</p>
-                        </div>
-                    </div>
-                </div>
+                ${deliveryOptionsHTML(sameProduct, cart)}
             </div>
         </div>
     </div>
 </div>`;
 });
+
+function deliveryOptionsHTML(sameProduct, cart) {
+    let html = '';
+    deliveryOptions.forEach((deliveryOption) => {
+        const today = dayjs();
+        const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+        const dateString = deliveryDate.format('dddd, MMMM D');
+        const priceString = deliveryOption.priceCent === 0
+            ? 'FREE'
+            :`${formatCurrency(deliveryOption.priceCent)} -`; 
+
+    const isChecked = deliveryOption.id === cart.deliveryOptionId;
+
+      html += `
+        <div class="my-3 flex items-center gap-2">
+            <input type="radio" ${isChecked ? 'checked' : ''} name="${sameProduct.id}" class="w-5 h-5 cursor-pointer">
+            <div>
+                <p class="text-green-700 font-medium">
+                    ${dateString}
+                </p>
+                <p class="text-gray-500">
+                    ${priceString} Shipping
+                </p>
+            </div>
+        </div>
+      `  
+    });
+
+    return html;
+};
 
 document.querySelector('.checkout_container')
     .innerHTML = cartSummaryHTML;
