@@ -25,58 +25,60 @@ cartItem.forEach(cart => {
         }
     });
 
-    const deliveryOptionId = cart.deliveryOptionId;
+   const deliveryOptionId = cart.deliveryOptionId; 
 
-    let deliveryOption;
+   let deliveryOption;
 
-    deliveryOptions.forEach(option => {
-        if (option.id === deliveryOptionId) {
-            deliveryOption = option;
-        }
-    });
+   deliveryOptions.forEach(option => {
+    if (option.id === deliveryOptionId) {
+        deliveryOption = option;
+    }
+   });
 
-    const today = dayjs();
-    const deliveryDate = today.add(deliveryOption.deliveryDays,    'days');
-    const dateString = deliveryDate.format('dddd, MMMM D');
-
-    cartSummaryHTML += `<div class="border-gray-300 border rounded-md mb-2 js-cart-container-${sameProduct.id}">
-    <div class="w-11/12 mx-auto py-4">
-        <p class="font-bold text-lg text-green-700 mb-4">
-            Delivery date: ${dateString}
-        </p>
-        <div class="lg:flex lg:gap-8">
-            <div class="mb-4 flex gap-3 justify-center lg:w-3/5 overflow-hidden">
-                <div class="basis-1/3">
-                    <img src="../${sameProduct.image}" >
-                </div>
-                <div class="basis-2/3">
-                    <p class="font-bold mb-2">${sameProduct.name}</p>
-                    <p class="text-red-700 font-bold mb-2">$${formatCurrency(sameProduct.priceCent)}</p>
-                    <div class="flex flex-wrap gap-1 sm:gap-2">
-                        <p>
-                            Quantity: <span class="quantity-label js-quantity-label-${sameProduct.id}">${cart.quantity}</span>
-                        </p>
-                        <span class="text-blue-400 cursor-pointer update-link" data-product-id="${sameProduct.id}">
-                            Update
-                        </span>
-                        <input class="w-8 h-6 border border-solid quantity-input hidden js-quantity-input-${sameProduct.id}">
-                        <span class="save-quantity-link hidden cursor-pointer" data-product-id="${sameProduct.id}">
-                            Save
-                        </span>
-                        <span class="text-blue-400 cursor-pointer delete-link" data-product-id="${sameProduct.id}">
-                            Delete
-                        </span>
+   const today = dayjs();
+   const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+   const dateString = deliveryDate.format('dddd, MMMM D');
+    
+    cartSummaryHTML += `
+        <div class="border-gray-300 border rounded-md mb-2 js-cart-container-${sameProduct.id}">
+            <div class="w-11/12 mx-auto py-4">
+                <p class="font-bold text-lg text-green-700 mb-4">
+                    Delivery date: ${dateString}
+                </p>
+                <div class="lg:flex lg:gap-8">
+                    <div class="mb-4 flex gap-3 justify-center lg:w-3/5 overflow-hidden">
+                        <div class="basis-1/3">
+                            <img src="../${sameProduct.image}" >
+                        </div>
+                        <div class="basis-2/3">
+                            <p class="font-bold mb-2">${sameProduct.name}</p>
+                            <p class="text-red-700 font-bold mb-2">$${formatCurrency(sameProduct.priceCent)}</p>
+                            <div class="flex flex-wrap gap-1 sm:gap-2">
+                                <p>
+                                    Quantity: <span class="quantity-label js-quantity-label-${sameProduct.id}">${cart.quantity}</span>
+                                </p>
+                                <span class="text-blue-400 cursor-pointer update-link" data-product-id="${sameProduct.id}">
+                                    Update
+                                </span>
+                                <input class="w-8 h-6 border border-solid quantity-input hidden js-quantity-input-${sameProduct.id}">
+                                <span class="save-quantity-link hidden cursor-pointer" data-product-id="${sameProduct.id}">
+                                    Save
+                                </span>
+                                <span class="text-blue-400 cursor-pointer delete-link" data-product-id="${sameProduct.id}">
+                                    Delete
+                                </span>
+                            </div>
+                        </div>
+                    </div>    
+                    
+                    <div class="lg:w-2/5">
+                        <p class="font-bold">Choose a delivery option:</p>
+                        ${deliveryOptionsHTML(sameProduct, cart)}
                     </div>
                 </div>
-            </div>    
-            
-            <div class="lg:w-2/5">
-                <p class="font-bold">Choose a delivery option:</p>
-                ${deliveryOptionsHTML(sameProduct, cart)}
             </div>
         </div>
-    </div>
-</div>`;
+    `;
 });
 
 function deliveryOptionsHTML(sameProduct, cart) {
