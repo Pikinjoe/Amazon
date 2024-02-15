@@ -20,12 +20,18 @@ const totalBeforeTaxCent = productPriceCent + shippingPriceCent;
 const taxCent = totalBeforeTaxCent * 0.1;
 const totalCent = totalBeforeTaxCent + taxCent;
 
+let cartQuantity = 0;
+
+cartItem.forEach((item) => {
+    cartQuantity += item.quantity;
+})
+
 const paymentSummaryHTML =
 `
     <div class="w-11/12 mx-auto py-4">
         <p class="font-bold text-lg capitalize">order summary</p>
         <div class="my-2 flex justify-between">
-            <p>Items (<span class="font-semibold"><span class=" cart-output"></span> items</span>):</p>
+            <p class="font-semibold">Items: (${cartQuantity})</p>
             <p>
                 $${formatCurrency(productPriceCent)}
             </p>
